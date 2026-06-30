@@ -32,18 +32,36 @@
         <div class="cursor-ring"></div>
     </div>
 
-    <!-- Premium Animated Loader -->
+    <!-- Premium IDE-Inspired Animated Loader -->
     <div class="loader-overlay" id="loader">
-        <div class="loader-content">
-            <div class="loader-logo">
-                <span class="loader-logo-badge">C</span>
-                <span class="loader-logo-text">Chanakya</span>
+        <div class="loader-content ide-loader-layout">
+            <div class="ide-window-header">
+                <div class="window-buttons">
+                    <span class="dot-red"></span>
+                    <span class="dot-yellow"></span>
+                    <span class="dot-green"></span>
+                </div>
+                <div class="window-title-tab">system_boot.sh</div>
             </div>
-            <div class="loader-percentage-container">
-                <span class="loader-percentage" id="loader-percentage">00</span><span class="loader-percentage-symbol">%</span>
-            </div>
-            <div class="loader-progress-track">
-                <div class="loader-progress-bar" id="loader-progress-bar"></div>
+            <div class="ide-window-body">
+                <div class="ide-terminal-lines">
+                    <div class="ide-line"><span class="prompt">></span> <span class="type-text-1"></span></div>
+                    <div class="ide-line"><span class="prompt">></span> <span class="type-text-2"></span></div>
+                    <div class="ide-line"><span class="prompt">></span> <span class="type-text-3"></span></div>
+                    <div class="ide-line"><span class="prompt">></span> <span class="type-text-4"></span></div>
+                </div>
+                <div class="loader-logo-row">
+                    <div class="loader-logo">
+                        <span class="loader-logo-badge">C</span>
+                        <span class="loader-logo-text">Chanakya Academy</span>
+                    </div>
+                    <div class="loader-percentage-container">
+                        <span class="loader-percentage" id="loader-percentage">00</span><span class="loader-percentage-symbol">%</span>
+                    </div>
+                </div>
+                <div class="loader-progress-track">
+                    <div class="loader-progress-bar" id="loader-progress-bar"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -189,6 +207,18 @@
                     <div class="parallax-element float-icon icon-globe" data-depth="0.1">
                         <i data-lucide="globe" class="icon-xl icon-green"></i>
                     </div>
+                    <div class="parallax-element float-icon icon-react" data-depth="0.22">
+                        <i data-lucide="layers" class="icon-lg icon-blue"></i>
+                    </div>
+                    <div class="parallax-element float-icon icon-git" data-depth="0.14">
+                        <i data-lucide="git-branch" class="icon-md icon-pink"></i>
+                    </div>
+                    
+                    <!-- Glass circles and abstract shapes -->
+                    <div class="parallax-element glass-circle circle-1" data-depth="0.12"></div>
+                    <div class="parallax-element glass-circle circle-2" data-depth="0.2"></div>
+                    <div class="parallax-element float-shape shape-3d-1" data-depth="0.18"></div>
+                    <div class="parallax-element float-shape shape-3d-2" data-depth="0.28"></div>
                     
                     <!-- Computer Visual Window (Glassmorphic) -->
                     <div class="computer-illustration-container parallax-element" data-depth="0.08" data-tilt>
@@ -210,9 +240,25 @@
 
 institute.empower(<span class="code-function">()</span> =&gt; {
     <span class="code-comment">// Shape the digital future</span>
-    <span class="code-class">console</span>.log(<span class="code-string">"Ready to Code."</span>);
+    <span class="code-class">console</span>.log("Ready to Code.");
 });</code></pre>
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- Second Visual Element: Student Workspace Card -->
+                    <div class="student-workspace-card parallax-element" data-depth="0.18" data-tilt>
+                        <div class="workspace-header">
+                            <i data-lucide="user-check" class="icon-sm icon-accent"></i>
+                            <span>Creative Design Lab</span>
+                        </div>
+                        <div class="workspace-project">
+                            <span class="project-tag">Active compiler</span>
+                            <span class="project-title">SaaS UI Engine v2.6</span>
+                        </div>
+                        <div class="workspace-meta-row">
+                            <span class="meta-label">GSAP Core status</span>
+                            <span class="meta-status-tag">Active</span>
                         </div>
                     </div>
                 </div>
@@ -305,23 +351,48 @@ institute.empower(<span class="code-function">()</span> =&gt; {
                         </div>
                     </div>
 
-                    <!-- Highlight checklist elements -->
-                    <div class="about-highlights-container reveal-stagger-about-container">
-                        <h4 class="highlights-title reveal-fade-about">Core Highlights</h4>
-                        <ul class="highlights-list">
-                            <li class="highlights-item reveal-stagger-about-item">
-                                <i data-lucide="check-circle-2" class="highlight-check"></i>
-                                <span>State-of-the-Art Practical Computer Labs</span>
-                            </li>
-                            <li class="highlights-item reveal-stagger-about-item">
-                                <i data-lucide="check-circle-2" class="highlight-check"></i>
-                                <span>Certified Experts with Real-World Project Experience</span>
-                            </li>
-                            <li class="highlights-item reveal-stagger-about-item">
-                                <i data-lucide="check-circle-2" class="highlight-check"></i>
-                                <span>Guaranteed Placement & Internship Support Pathways</span>
-                            </li>
-                        </ul>
+                    <!-- Journey Timeline Infographic -->
+                    <div class="about-timeline-container reveal-stagger-about-container">
+                        <h4 class="timeline-section-title reveal-fade-about">Our Growth Milestones</h4>
+                        <div class="timeline-infographic">
+                            <div class="timeline-line-path"></div>
+                            
+                            <div class="timeline-milestone reveal-stagger-about-item">
+                                <div class="milestone-dot-glow"></div>
+                                <div class="milestone-year">2014</div>
+                                <div class="milestone-detail">
+                                    <h5>Foundation</h5>
+                                    <p>Launched core software lab structures with 50 systems.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-milestone reveal-stagger-about-item">
+                                <div class="milestone-dot-glow"></div>
+                                <div class="milestone-year">2018</div>
+                                <div class="milestone-detail">
+                                    <h5>Elite Status</h5>
+                                    <p>Secured ISO certification and introduced design methodologies.</p>
+                                </div>
+                            </div>
+
+                            <div class="timeline-milestone reveal-stagger-about-item">
+                                <div class="milestone-dot-glow"></div>
+                                <div class="milestone-year">2022</div>
+                                <div class="milestone-detail">
+                                    <h5>Global Links</h5>
+                                    <p>Tuned curriculum templates to international standards.</p>
+                                </div>
+                            </div>
+
+                            <div class="timeline-milestone reveal-stagger-about-item">
+                                <div class="milestone-dot-glow"></div>
+                                <div class="milestone-year">2026</div>
+                                <div class="milestone-detail">
+                                    <h5>SaaS Academy</h5>
+                                    <p>Rebooted as a modern production agency and code laboratory.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -369,6 +440,7 @@ institute.empower(<span class="code-function">()</span> =&gt; {
                         <div class="course-card-body">
                             <div class="course-meta">
                                 <span class="course-tag">Engineering</span>
+                                <span class="course-level badge-blue-pill">Advanced</span>
                                 <span class="course-duration">
                                     <i data-lucide="clock" class="icon-xxs"></i>
                                     6 Months
@@ -377,7 +449,7 @@ institute.empower(<span class="code-function">()</span> =&gt; {
                             <h3 class="course-card-title">Full-Stack Web Engineering</h3>
                             <p class="course-card-desc">Master client-server architecture, modern Javascript compilers, databases, APIs, and low-latency cloud deployments.</p>
                             <button class="btn btn-secondary btn-course-cta">
-                                View Syllabus
+                                Learn More
                                 <i data-lucide="arrow-up-right" class="icon-xs"></i>
                             </button>
                         </div>
@@ -407,6 +479,7 @@ institute.empower(<span class="code-function">()</span> =&gt; {
                         <div class="course-card-body">
                             <div class="course-meta">
                                 <span class="course-tag">Creative Design</span>
+                                <span class="course-level badge-pink-pill">Beginner to Pro</span>
                                 <span class="course-duration">
                                     <i data-lucide="clock" class="icon-xxs"></i>
                                     4 Months
@@ -415,7 +488,7 @@ institute.empower(<span class="code-function">()</span> =&gt; {
                             <h3 class="course-card-title">Advanced UI/UX & Creative Design</h3>
                             <p class="course-card-desc">Design digital interactions. Wireframing, typography hierarchies, prototyping, design systems, and Webflow development.</p>
                             <button class="btn btn-secondary btn-course-cta">
-                                View Syllabus
+                                Learn More
                                 <i data-lucide="arrow-up-right" class="icon-xs"></i>
                             </button>
                         </div>
@@ -445,6 +518,7 @@ institute.empower(<span class="code-function">()</span> =&gt; {
                         <div class="course-card-body">
                             <div class="course-meta">
                                 <span class="course-tag">Intelligence</span>
+                                <span class="course-level badge-purple-pill">Specialization</span>
                                 <span class="course-duration">
                                     <i data-lucide="clock" class="icon-xxs"></i>
                                     6 Months
@@ -453,7 +527,7 @@ institute.empower(<span class="code-function">()</span> =&gt; {
                             <h3 class="course-card-title">Data Science & Neural Systems</h3>
                             <p class="course-card-desc">Harness machine learning models, python statistics libraries, sql databases, analytics frameworks, and neural network paths.</p>
                             <button class="btn btn-secondary btn-course-cta">
-                                View Syllabus
+                                Learn More
                                 <i data-lucide="arrow-up-right" class="icon-xs"></i>
                             </button>
                         </div>
@@ -482,6 +556,7 @@ institute.empower(<span class="code-function">()</span> =&gt; {
                         <div class="course-card-body">
                             <div class="course-meta">
                                 <span class="course-tag">Security</span>
+                                <span class="course-level badge-emerald-pill">Professional</span>
                                 <span class="course-duration">
                                     <i data-lucide="clock" class="icon-xxs"></i>
                                     5 Months
@@ -490,7 +565,7 @@ institute.empower(<span class="code-function">()</span> =&gt; {
                             <h3 class="course-card-title">Cloud Computing & Cyber Defence</h3>
                             <p class="course-card-desc">Configure modern secure architectures, cloud networking pathways (AWS/Azure), virtual systems, and penetration testing.</p>
                             <button class="btn btn-secondary btn-course-cta">
-                                View Syllabus
+                                Learn More
                                 <i data-lucide="arrow-up-right" class="icon-xs"></i>
                             </button>
                         </div>
@@ -579,7 +654,7 @@ institute.empower(<span class="code-function">()</span> =&gt; {
             <div class="container">
                 <div class="contact-grid">
                     
-                    <!-- Left Column: Details & Map -->
+                    <!-- Left Column: Details -->
                     <div class="contact-details-col">
                         <div class="contact-header">
                             <div class="contact-badge reveal-fade-contact">
@@ -603,7 +678,7 @@ institute.empower(<span class="code-function">()</span> =&gt; {
                                 </div>
                                 <div class="contact-item-text">
                                     <h4>Institute Address</h4>
-                                    <p>Chanakya Tower, Sector 3, Hiran Magri, Udaipur, Rajasthan 313002</p>
+                                    <p>ABC Junction, Akurdi Railway Station Rd, Pradhikaran, Nigdi, Pimpri-Chinchwad, Maharashtra 411044</p>
                                 </div>
                             </div>
 
@@ -613,7 +688,7 @@ institute.empower(<span class="code-function">()</span> =&gt; {
                                 </div>
                                 <div class="contact-item-text">
                                     <h4>Phone Numbers</h4>
-                                    <p>+91 94141 56789, +91 0294 2489999</p>
+                                    <p>+91 80877 09558</p>
                                 </div>
                             </div>
 
@@ -623,56 +698,38 @@ institute.empower(<span class="code-function">()</span> =&gt; {
                                 </div>
                                 <div class="contact-item-text">
                                     <h4>Email Support</h4>
-                                    <p>admissions@chanakyainstitute.com, support@chanakya.edu.in</p>
+                                    <p>info@chanakyainstitute.com</p>
                                 </div>
                             </div>
 
                         </div>
 
-                        <!-- Stylized vector Map container -->
-                        <div class="contact-map-container reveal-fade-contact-items" data-tilt>
-                            <svg viewBox="0 0 400 150" fill="none" class="vector-map-svg" xmlns="http://www.w3.org/2000/svg">
-                                <!-- Grid Lines -->
-                                <line x1="50" y1="0" x2="50" y2="150" stroke="rgba(0,0,0,0.03)" stroke-width="1"/>
-                                <line x1="100" y1="0" x2="100" y2="150" stroke="rgba(0,0,0,0.03)" stroke-width="1"/>
-                                <line x1="150" y1="0" x2="150" y2="150" stroke="rgba(0,0,0,0.03)" stroke-width="1"/>
-                                <line x1="200" y1="0" x2="200" y2="150" stroke="rgba(0,0,0,0.03)" stroke-width="1"/>
-                                <line x1="250" y1="0" x2="250" y2="150" stroke="rgba(0,0,0,0.03)" stroke-width="1"/>
-                                <line x1="300" y1="0" x2="300" y2="150" stroke="rgba(0,0,0,0.03)" stroke-width="1"/>
-                                <line x1="355" y1="0" x2="355" y2="150" stroke="rgba(0,0,0,0.03)" stroke-width="1"/>
-                                <line x1="0" y1="40" x2="400" y2="40" stroke="rgba(0,0,0,0.03)" stroke-width="1"/>
-                                <line x1="0" y1="80" x2="400" y2="80" stroke="rgba(0,0,0,0.03)" stroke-width="1"/>
-                                <line x1="0" y1="120" x2="400" y2="120" stroke="rgba(0,0,0,0.03)" stroke-width="1"/>
-                                
-                                <!-- Roads vector paths -->
-                                <path d="M10 20 H390" stroke="rgba(0,0,0,0.04)" stroke-width="6"/>
-                                <path d="M80 10 V140" stroke="rgba(0,0,0,0.04)" stroke-width="6"/>
-                                <path d="M10 110 H390" stroke="rgba(0,0,0,0.04)" stroke-width="6"/>
-                                <path d="M300 10 V140" stroke="rgba(0,0,0,0.04)" stroke-width="6"/>
-                                
-                                <!-- Location Pin SVG and pulsing dot -->
-                                <circle cx="200" cy="75" r="14" fill="rgba(37,99,235,0.08)"/>
-                                <circle cx="200" cy="75" r="5" fill="#2563eb" class="map-pulse-dot"/>
-                                <path d="M200 45 L208 55 H192 Z" fill="#2563eb" opacity="0.85"/>
-                                <text x="215" y="80" fill="#1e293b" font-family="'Outfit', sans-serif" font-size="11" font-weight="600">Chanakya Institute</text>
-                                <text x="215" y="93" fill="#64748b" font-family="'Outfit', sans-serif" font-size="9">Sector 3, Udaipur</text>
-                            </svg>
-                        </div>
-
                         <!-- Social icons list -->
                         <div class="contact-socials reveal-fade-contact-items">
                             <a href="#" class="social-btn" aria-label="Twitter">
-                                <i data-lucide="twitter" class="icon-md"></i>
+                                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="lucide"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
                             </a>
                             <a href="#" class="social-btn" aria-label="LinkedIn">
-                                <i data-lucide="linkedin" class="icon-md"></i>
+                                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="lucide"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
                             </a>
                             <a href="#" class="social-btn" aria-label="GitHub">
-                                <i data-lucide="github" class="icon-md"></i>
+                                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="lucide"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
                             </a>
                             <a href="#" class="social-btn" aria-label="YouTube">
-                                <i data-lucide="youtube" class="icon-md"></i>
+                                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="lucide"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
                             </a>
+                        </div>
+                    </div>
+
+                    <!-- Middle Column: Interactive Visuals (Lottie Map & Google Map iframe) -->
+                    <div class="contact-visuals-col reveal-fade-contact-items">
+                        <!-- Lottie Map Routing -->
+                        <div class="contact-lottie-container" id="lottie-contact-map" data-tilt>
+                            <!-- Lottie renders here -->
+                        </div>
+                        <!-- Google Maps Location iframe -->
+                        <div class="contact-map-container" data-tilt>
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3991.986093460602!2d73.7659125!3d18.649309799999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2b988115e05d5%3A0x8bdfd0128027cf2f!2sChanakya%20Computer%20Institute!5e1!3m2!1sen!2sin!4v1782833760331!5m2!1sen!2sin" width="100%" height="220" style="border:0; display:block;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" aria-label="Google Map Location"></iframe>
                         </div>
                     </div>
 
@@ -798,15 +855,15 @@ institute.empower(<span class="code-function">()</span> =&gt; {
                     <h4 class="footer-col-title">Reach Us</h4>
                     <p class="footer-contact-detail">
                         <i data-lucide="map-pin" class="icon-xs flex-shrink-0"></i>
-                        Sector 3, Udaipur, RJ 313002
+                        ABC Junction, Akurdi Station Rd, MH 411044
                     </p>
                     <p class="footer-contact-detail">
                         <i data-lucide="phone" class="icon-xs flex-shrink-0"></i>
-                        +91 94141 56789
+                        +91 80877 09558
                     </p>
                     <p class="footer-contact-detail">
                         <i data-lucide="mail" class="icon-xs flex-shrink-0"></i>
-                        admissions@chanakya.edu
+                        info@chanakyainstitute.com
                     </p>
                 </div>
 
@@ -829,6 +886,121 @@ institute.empower(<span class="code-function">()</span> =&gt; {
         <i data-lucide="arrow-up" class="icon-lg"></i>
     </button>
 
+    <!-- Premium Floating Admissions CTA Widget (Desktop) -->
+    <div class="admissions-widget collapsed" id="admissions-widget">
+        <div class="widget-header">
+            <span class="widget-icon">🎓</span>
+            <span class="widget-text">Admissions Open 2026–27</span>
+            <i data-lucide="chevron-left" class="widget-arrow icon-xs"></i>
+        </div>
+        <div class="widget-body">
+            <div class="widget-actions">
+                <a href="tel:+918087709558" class="widget-btn call-btn">
+                    <i data-lucide="phone" class="icon-sm"></i> Call Now
+                </a>
+                <a href="https://wa.me/918087709558" target="_blank" class="widget-btn whatsapp-btn">
+                    <i data-lucide="message-square" class="icon-sm"></i> WhatsApp
+                </a>
+                <button class="widget-btn enquire-btn trigger-enquiry">
+                    <i data-lucide="edit-3" class="icon-sm"></i> Enquire Now
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Premium Sticky Quick Contact Bar (Desktop/Mobile Right) -->
+    <div class="quick-contact-bar" id="quick-contact-bar">
+        <a href="tel:+918087709558" class="contact-bar-btn" aria-label="Call Us">
+            <i data-lucide="phone" class="icon-md"></i>
+            <span class="btn-tooltip">Call</span>
+        </a>
+        <a href="https://wa.me/918087709558" target="_blank" class="contact-bar-btn" aria-label="WhatsApp Us">
+            <i data-lucide="message-square" class="icon-md"></i>
+            <span class="btn-tooltip">WhatsApp</span>
+        </a>
+        <a href="#contact" class="contact-bar-btn" aria-label="Our Location">
+            <i data-lucide="map-pin" class="icon-md"></i>
+            <span class="btn-tooltip">Location</span>
+        </a>
+        <button class="contact-bar-btn trigger-enquiry" aria-label="Enquire Now">
+            <i data-lucide="help-circle" class="icon-md"></i>
+            <span class="btn-tooltip">Enquiry</span>
+        </button>
+    </div>
+
+    <!-- Mobile Bottom Sticky Navigation Bar -->
+    <div class="mobile-sticky-bar" id="mobile-sticky-bar">
+        <a href="tel:+918087709558" class="mobile-sticky-item">
+            <i data-lucide="phone" class="icon-md"></i>
+            <span>Call</span>
+        </a>
+        <a href="https://wa.me/918087709558" target="_blank" class="mobile-sticky-item">
+            <i data-lucide="message-square" class="icon-md"></i>
+            <span>WhatsApp</span>
+        </a>
+        <a href="#contact" class="mobile-sticky-item">
+            <i data-lucide="map-pin" class="icon-md"></i>
+            <span>Location</span>
+        </a>
+        <button class="mobile-sticky-item trigger-enquiry">
+            <i data-lucide="edit-3" class="icon-md"></i>
+            <span>Enquiry</span>
+        </button>
+    </div>
+
+    <!-- Premium Glassmorphic Enquiry Modal -->
+    <div class="enquiry-modal-overlay" id="enquiry-modal-overlay">
+        <div class="enquiry-modal-card" data-tilt>
+            <button class="modal-close-btn" id="enquiry-modal-close" aria-label="Close Enquiry Modal">
+                <i data-lucide="x" class="icon-lg"></i>
+            </button>
+            <div class="modal-header">
+                <h3 class="modal-title">Enquire Now</h3>
+                <p class="modal-subtitle">Connect with a technical advisor at Chanakya Computer Academy.</p>
+            </div>
+            <form id="modal-enquiry-form" class="institute-form" novalidate>
+                <div class="form-group">
+                    <label for="modal-name">Full Name</label>
+                    <input type="text" id="modal-name" placeholder="John Doe" required>
+                    <span class="field-error-msg">Please enter your full name</span>
+                </div>
+                <div class="form-group">
+                    <label for="modal-email">Email Address</label>
+                    <input type="email" id="modal-email" placeholder="john@example.com" required>
+                    <span class="field-error-msg">Please enter a valid email address</span>
+                </div>
+                <div class="form-group">
+                    <label for="modal-phone">Phone Number</label>
+                    <input type="tel" id="modal-phone" placeholder="+91 98765 43210" required>
+                    <span class="field-error-msg">Please enter your phone number</span>
+                </div>
+                <div class="form-group">
+                    <label for="modal-course">Course Interested In</label>
+                    <select id="modal-course" required>
+                        <option value="" disabled selected>Select a program</option>
+                        <option value="web-engineering">Full-Stack Web Engineering</option>
+                        <option value="uiux-design">Advanced UI/UX & Creative Design</option>
+                        <option value="data-science">Data Science & Neural Systems</option>
+                        <option value="cloud-cyber">Cloud Computing & Cyber Defence</option>
+                    </select>
+                    <span class="field-error-msg">Please select a program</span>
+                </div>
+                <div class="form-group">
+                    <label for="modal-message">Your Message</label>
+                    <textarea id="modal-message" rows="3" placeholder="Tell us about your learning goals..." required></textarea>
+                    <span class="field-error-msg">Please enter your message</span>
+                </div>
+                <div class="modal-footer-buttons">
+                    <button type="button" class="btn btn-secondary modal-cancel-btn" id="enquiry-modal-cancel">Cancel</button>
+                    <button type="submit" class="btn btn-primary modal-submit-btn">
+                        Submit Enquiry
+                        <i data-lucide="arrow-right" class="icon-sm"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- THIRD-PARTY PREMIUM LIBRARIES CDNs -->
     
     <!-- GSAP (Core) -->
@@ -847,6 +1019,9 @@ institute.empower(<span class="code-function">()</span> =&gt; {
     
     <!-- Lucide Icons (Premium SVG vectors replacement) -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Lottie Web Player -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
     
     <!-- FOUNDATION CUSTOM SCRIPTS -->
     <script src="js/main.js"></script>

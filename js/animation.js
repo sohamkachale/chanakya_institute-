@@ -224,22 +224,43 @@ function initPremiumLoader() {
         }
     });
 
-    // Animate loader elements in
-    tl.to('.loader-logo', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' });
-    tl.to('.loader-percentage-container', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.6');
-    tl.to('.loader-progress-track', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.6');
+    // Monospace lines typewriter animations sequence
+    const typeLine = (selector, text, duration) => {
+        const obj = { charIndex: 0 };
+        return gsap.to(obj, {
+            charIndex: text.length,
+            duration: duration,
+            ease: "none",
+            onUpdate: () => {
+                const el = document.querySelector(selector);
+                if (el) el.textContent = text.slice(0, Math.floor(obj.charIndex));
+            }
+        });
+    };
 
-    // Simulate load percentage counting
+    // Fade loader layout in
+    tl.fromTo('.ide-loader-layout',
+        { opacity: 0, scale: 0.95 },
+        { opacity: 1, scale: 1, duration: 0.5, ease: 'power3.out' }
+    );
+
+    // Type lines staggered
+    tl.add(typeLine('.type-text-1', "git clone chanakya-curriculum.git", 0.5));
+    tl.add(typeLine('.type-text-2', "initializing learning environment...", 0.6), "+=0.1");
+    tl.add(typeLine('.type-text-3', "loading premium design studio modules...", 0.7), "+=0.1");
+    tl.add(typeLine('.type-text-4', "system ready. ready to learn.", 0.5), "+=0.1");
+
+    // Progress counter running in parallel with typing text lines
     tl.to(count, {
         val: 100,
-        duration: 2.5,
-        ease: 'power2.out',
+        duration: 2.8,
+        ease: 'power1.inOut',
         onUpdate: () => {
             const current = Math.floor(count.val);
             counter.textContent = current.toString().padStart(2, '0');
             bar.style.width = `${current}%`;
         }
-    }, '+=0.2');
+    }, 0.5); // Starts running alongside typewriter
 }
 
 /**
@@ -257,15 +278,17 @@ function animateHeroElements() {
     const heroTl = gsap.timeline();
 
     // Set initial custom visibility parameters
-    gsap.set([badge, desc, actions, computer], { opacity: 0 });
-    gsap.set(icons, { opacity: 0, scale: 0 });
-    gsap.set(statCards, { opacity: 0 });
+    gsap.set([badge, desc, actions, computer].filter(Boolean), { opacity: 0 });
+    if (icons.length > 0) gsap.set(icons, { opacity: 0, scale: 0 });
+    if (statCards.length > 0) gsap.set(statCards, { opacity: 0 });
 
     // 1. Badge Reveal
-    heroTl.fromTo(badge, 
-        { opacity: 0, y: 15 },
-        { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }
-    );
+    if (badge) {
+        heroTl.fromTo(badge, 
+            { opacity: 0, y: 15 },
+            { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }
+        );
+    }
 
     // 2. Heading SplitType Reveal
     if (typeof SplitType !== 'undefined' && title) {
@@ -291,18 +314,32 @@ function animateHeroElements() {
     }
 
     // 3. Description & Actions Reveal
-    heroTl.fromTo([desc, actions],
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, stagger: 0.12, duration: 0.8, ease: 'power3.out' },
-        '-=0.75'
-    );
+    const contentTargets = [desc, actions].filter(Boolean);
+    if (contentTargets.length > 0) {
+        heroTl.fromTo(contentTargets,
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, stagger: 0.12, duration: 0.8, ease: 'power3.out' },
+            '-=0.75'
+        );
+    }
 
     // 4. Computer Illustration & floating icons reveal
-    heroTl.fromTo(computer,
-        { opacity: 0, scale: 0.94, y: 35 },
-        { opacity: 1, scale: 1, y: 0, duration: 1.3, ease: 'power4.out' },
-        '-=1.05'
-    );
+    if (computer) {
+        heroTl.fromTo(computer,
+            { opacity: 0, scale: 0.94, y: 35 },
+            { opacity: 1, scale: 1, y: 0, duration: 1.3, ease: 'power4.out' },
+            '-=1.05'
+        );
+    }
+
+    const extraFloaters = document.querySelectorAll('.student-workspace-card, .glass-circle, .float-shape');
+    if (extraFloaters.length > 0) {
+        heroTl.fromTo(extraFloaters,
+            { opacity: 0, scale: 0.92, y: 20 },
+            { opacity: 1, scale: 1, y: 0, stagger: 0.08, duration: 1.2, ease: 'power3.out' },
+            '-=1.05'
+        );
+    }
     
     if (icons.length > 0) {
         heroTl.fromTo(icons,
@@ -352,8 +389,9 @@ function initAboutAnimations() {
     const cards = section.querySelectorAll('.about-glass-card');
     const visual = section.querySelector('.about-dashboard-container');
     const floatCards = section.querySelectorAll('.about-floating-card');
-    const highlightTitle = section.querySelector('.highlights-title');
-    const highlights = section.querySelectorAll('.highlights-item');
+    const timelineTitle = section.querySelector('.timeline-section-title');
+    const timelinePath = section.querySelector('.timeline-line-path');
+    const milestones = section.querySelectorAll('.timeline-milestone');
 
     // Create dynamic ScrollTrigger timeline
     const tl = gsap.timeline({
@@ -365,15 +403,21 @@ function initAboutAnimations() {
     });
 
     // Set initial visibility values
-    gsap.set([badge, desc, visual, highlightTitle], { opacity: 0 });
-    gsap.set(floatCards, { opacity: 0, scale: 0.8 });
-    gsap.set([cards, highlights], { opacity: 0 });
+    gsap.set([badge, desc, visual, timelineTitle].filter(Boolean), { opacity: 0 });
+    if (floatCards.length > 0) gsap.set(floatCards, { opacity: 0, scale: 0.8 });
+    if (cards.length > 0) gsap.set(cards, { opacity: 0 });
+    if (milestones.length > 0) gsap.set(milestones, { opacity: 0, x: -20 });
+    if (timelinePath) {
+        gsap.set(timelinePath, { scaleY: 0, transformOrigin: 'top center' });
+    }
 
     // 1. Badge Reveal
-    tl.fromTo(badge, 
-        { opacity: 0, y: 15 },
-        { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }
-    );
+    if (badge) {
+        tl.fromTo(badge, 
+            { opacity: 0, y: 15 },
+            { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }
+        );
+    }
 
     // 2. Title SplitType Reveal
     if (typeof SplitType !== 'undefined' && title) {
@@ -414,17 +458,28 @@ function initAboutAnimations() {
         );
     }
 
-    // 5. Highlights Header & Items reveal
-    tl.fromTo(highlightTitle,
-        { opacity: 0, y: 15 },
-        { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' },
-        '-=0.6'
-    );
-    if (highlights.length > 0) {
-        tl.fromTo(highlights,
-            { opacity: 0, x: -15 },
-            { opacity: 1, x: 0, stagger: 0.1, duration: 0.6, ease: 'power2.out' },
-            '-=0.45'
+    // 5. Journey timeline milestones & paths reveal
+    if (timelineTitle) {
+        tl.fromTo(timelineTitle,
+            { opacity: 0, y: 15 },
+            { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' },
+            '-=0.6'
+        );
+    }
+    
+    if (timelinePath) {
+        tl.to(timelinePath, {
+            scaleY: 1,
+            duration: 1,
+            ease: 'power1.inOut'
+        }, '-=0.4');
+    }
+
+    if (milestones.length > 0) {
+        tl.fromTo(milestones,
+            { opacity: 0, x: -20 },
+            { opacity: 1, x: 0, stagger: 0.15, duration: 0.7, ease: 'power3.out' },
+            '-=0.8'
         );
     }
 
@@ -532,14 +587,16 @@ function initWhyAnimations() {
         }
     });
 
-    gsap.set([badge, subtitle], { opacity: 0 });
-    gsap.set(cards, { opacity: 0 });
+    gsap.set([badge, subtitle].filter(Boolean), { opacity: 0 });
+    if (cards.length > 0) gsap.set(cards, { opacity: 0 });
 
     // 1. Badge Reveal
-    tl.fromTo(badge,
-        { opacity: 0, y: 15 },
-        { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }
-    );
+    if (badge) {
+        tl.fromTo(badge,
+            { opacity: 0, y: 15 },
+            { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }
+        );
+    }
 
     // 2. Title SplitType Reveal
     if (typeof SplitType !== 'undefined' && title) {
@@ -565,11 +622,13 @@ function initWhyAnimations() {
     }
 
     // 3. Subtitle Reveal
-    tl.fromTo(subtitle,
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' },
-        '-=0.7'
-    );
+    if (subtitle) {
+        tl.fromTo(subtitle,
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' },
+            '-=0.7'
+        );
+    }
 
     // 4. Staggered Feature Cards reveal
     if (cards.length > 0) {
@@ -611,15 +670,17 @@ function initContactAnimations() {
         }
     });
 
-    gsap.set([badge, subtitle, map, formCard], { opacity: 0 });
-    gsap.set(items, { opacity: 0 });
-    gsap.set(socials, { opacity: 0 });
+    gsap.set([badge, subtitle, map, formCard].filter(Boolean), { opacity: 0 });
+    if (items.length > 0) gsap.set(items, { opacity: 0 });
+    if (socials.length > 0) gsap.set(socials, { opacity: 0 });
 
     // 1. Badge Reveal
-    tl.fromTo(badge,
-        { opacity: 0, y: 15 },
-        { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }
-    );
+    if (badge) {
+        tl.fromTo(badge,
+            { opacity: 0, y: 15 },
+            { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }
+        );
+    }
 
     // 2. Title SplitType Reveal
     if (typeof SplitType !== 'undefined' && title) {
@@ -645,11 +706,13 @@ function initContactAnimations() {
     }
 
     // 3. Subtitle Reveal
-    tl.fromTo(subtitle,
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' },
-        '-=0.7'
-    );
+    if (subtitle) {
+        tl.fromTo(subtitle,
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' },
+            '-=0.7'
+        );
+    }
 
     // 4. Staggered contact items fade in
     if (items.length > 0) {

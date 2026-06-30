@@ -80,6 +80,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // 9. Contact form validation and success notifications
     initContactForm();
 
+    // 10. Floating Admissions widget & Quick Contact interactions
+    initFloatingWidgets();
+
+    // 11. Glassmorphic Enquiry Modal validation and triggers
+    initEnquiryModal();
+
+    // 12. Magnetic CTA Buttons
+    initMagneticButtons();
+
+    // 13. Initialize Contact Lottie Animation
+    initContactLottie();
+
     // Export lenis instance globally for use in other scripts
     window.lenisInstance = lenis;
     
@@ -166,11 +178,20 @@ function initScrollInteractions(lenisInstance) {
         });
 
         // Back to top button visibility threshold
-        ScrollTrigger.create({
-            start: 'top -400px',
-            onEnter: () => backToTop.classList.add('show'),
-            onLeaveBack: () => backToTop.classList.remove('show')
-        });
+        if (backToTop) {
+            const toggleBackToTop = (y) => {
+                if (y > 400) {
+                    backToTop.classList.add('show');
+                } else {
+                    backToTop.classList.remove('show');
+                }
+            };
+            if (lenisInstance) {
+                lenisInstance.on('scroll', (e) => toggleBackToTop(e.scroll));
+            } else {
+                window.addEventListener('scroll', () => toggleBackToTop(window.scrollY));
+            }
+        }
 
         // Scrollspy active state on navigation links
         const sections = document.querySelectorAll('main > section');
@@ -515,6 +536,220 @@ function initContactForm() {
                 }, 4000);
             }, 1200);
         }
+    });
+}
+
+/**
+ * Initialize Admissions & Quick Contact floating widgets
+ */
+function initFloatingWidgets() {
+    const admissionsWidget = document.getElementById('admissions-widget');
+    if (!admissionsWidget) return;
+
+    // Hover interactions for desktop expansion
+    admissionsWidget.addEventListener('mouseenter', () => {
+        admissionsWidget.classList.remove('collapsed');
+    });
+
+    admissionsWidget.addEventListener('mouseleave', () => {
+        admissionsWidget.classList.add('collapsed');
+    });
+
+    // Mobile click behavior (chevron click to expand/collapse)
+    const header = admissionsWidget.querySelector('.widget-header');
+    if (header) {
+        header.addEventListener('click', (e) => {
+            if (window.innerWidth <= 768 || admissionsWidget.classList.contains('collapsed')) {
+                admissionsWidget.classList.toggle('collapsed');
+            }
+        });
+    }
+}
+
+/**
+ * Initialize Glassmorphic Enquiry Modal overlay & popup triggers
+ */
+function initEnquiryModal() {
+    const modal = document.getElementById('enquiry-modal-overlay');
+    if (!modal) return;
+
+    const closeBtn = document.getElementById('enquiry-modal-close');
+    const cancelBtn = document.getElementById('enquiry-modal-cancel');
+    const form = document.getElementById('modal-enquiry-form');
+    const successToast = document.getElementById('success-toast');
+
+    // Find all Enquiry trigger buttons
+    const triggerButtons = document.querySelectorAll('.trigger-enquiry, .btn-hero-primary, .btn-nav-cta, .mobile-drawer-cta button');
+
+    function openModal() {
+        modal.classList.add('show');
+        if (window.lenisInstance) {
+            window.lenisInstance.stop(); // Lock scroll
+        }
+        
+        // GSAP animate card entrance
+        gsap.fromTo('.enquiry-modal-card', 
+            { y: 30, opacity: 0, scale: 0.95 },
+            { y: 0, opacity: 1, scale: 1, duration: 0.5, ease: 'power3.out' }
+        );
+    }
+
+    function closeModal() {
+        gsap.to('.enquiry-modal-card', {
+            y: 20,
+            opacity: 0,
+            scale: 0.95,
+            duration: 0.3,
+            ease: 'power3.in',
+            onComplete: () => {
+                modal.classList.remove('show');
+                if (window.lenisInstance) {
+                    window.lenisInstance.start(); // Unlock scroll
+                }
+            }
+        });
+    }
+
+    triggerButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal();
+        });
+    });
+
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
+    
+    // Close on overlay backdrop click
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+
+    // 15-second delayed popup trigger (only once per session)
+    if (!sessionStorage.getItem('enquiry_popup_seen')) {
+        setTimeout(() => {
+            if (!modal.classList.contains('show')) {
+                openModal();
+                sessionStorage.setItem('enquiry_popup_seen', 'true');
+            }
+        }, 15000);
+    }
+
+    // Modal Form Validation & Submission
+    if (form) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById('modal-name');
+            const email = document.getElementById('modal-email');
+            const phone = document.getElementById('modal-phone');
+            const course = document.getElementById('modal-course');
+            const message = document.getElementById('modal-message');
+
+            let hasErrors = false;
+
+            function validateEmail(val) {
+                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return re.test(String(val).toLowerCase());
+            }
+
+            function toggleFieldError(field, hasError) {
+                const group = field.closest('.form-group');
+                if (group) {
+                    if (hasError) {
+                        group.classList.add('error');
+                    } else {
+                        group.classList.remove('error');
+                    }
+                }
+            }
+
+            const fields = [name, email, phone, course, message];
+            fields.forEach(field => {
+                if (!field) return;
+                const val = field.value.trim();
+                if (val === '') {
+                    toggleFieldError(field, true);
+                    hasErrors = true;
+                } else if (field.id === 'modal-email' && !validateEmail(val)) {
+                    toggleFieldError(field, true);
+                    hasErrors = true;
+                } else {
+                    toggleFieldError(field, false);
+                }
+            });
+
+            if (!hasErrors) {
+                const submitBtn = form.querySelector('.modal-submit-btn');
+                const originalHTML = submitBtn.innerHTML;
+
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = 'Sending Inquiries...';
+
+                setTimeout(() => {
+                    form.reset();
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalHTML;
+
+                    closeModal();
+
+                    if (successToast) {
+                        successToast.classList.add('active');
+                        setTimeout(() => {
+                            successToast.classList.remove('active');
+                        }, 4000);
+                    }
+                }, 1200);
+            }
+        });
+    }
+}
+
+/**
+ * Initialize Magnetic Buttons with GSAP physics
+ */
+function initMagneticButtons() {
+    const magneticBtns = document.querySelectorAll('.btn-primary, .btn-secondary, .contact-bar-btn, .social-btn, .mobile-sticky-item');
+    magneticBtns.forEach(btn => {
+        btn.addEventListener('mousemove', (e) => {
+            const rect = btn.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width/2;
+            const y = e.clientY - rect.top - rect.height/2;
+            
+            gsap.to(btn, {
+                x: x * 0.35,
+                y: y * 0.35,
+                duration: 0.3,
+                ease: 'power2.out'
+            });
+        });
+        
+        btn.addEventListener('mouseleave', () => {
+            gsap.to(btn, {
+                x: 0,
+                y: 0,
+                duration: 0.5,
+                ease: 'elastic.out(1, 0.3)'
+            });
+        });
+    });
+}
+
+/**
+ * Initialize Lottie Map routing animation in contact details column
+ */
+function initContactLottie() {
+    const container = document.getElementById('lottie-contact-map');
+    if (!container || typeof lottie === 'undefined') return;
+
+    lottie.loadAnimation({
+        container: container,
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: 'assets/lottie/Map Routing.json'
     });
 }
 

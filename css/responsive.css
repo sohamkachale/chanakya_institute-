@@ -287,6 +287,54 @@
     }
 }
 
+/* Mobile configurations for floating widgets & timeline milestones */
+@media (max-width: 768px) {
+    .admissions-widget {
+        display: none !important;
+    }
+    
+    .quick-contact-bar {
+        display: flex !important;
+        right: 12px !important;
+        top: auto !important;
+        bottom: 80px !important;
+        transform: none !important;
+        gap: var(--space-xs) !important;
+    }
+    
+    .contact-bar-btn {
+        width: 38px !important;
+        height: 38px !important;
+    }
+    
+    .mobile-sticky-bar {
+        display: grid !important;
+    }
+    
+    body {
+        padding-bottom: 60px !important;
+    }
+    
+    .timeline-milestone {
+        flex-direction: column;
+        gap: var(--space-xs);
+        padding-left: var(--space-sm);
+        margin-left: var(--space-sm);
+    }
+    
+    .milestone-year {
+        min-width: auto;
+    }
+    
+    .milestone-dot-glow {
+        left: -19px;
+    }
+    
+    .timeline-line-path {
+        left: 11px;
+    }
+}
+
 
 
 
