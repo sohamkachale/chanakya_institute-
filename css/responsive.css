@@ -1,0 +1,221 @@
+/*
+ * Chanakya Computer Institute - Premium Project Foundation
+ * Responsive Stylesheet (responsive.css)
+ */
+
+/* Desktop / Large Screens (1200px and below) */
+@media (max-width: 1200px) {
+    :root {
+        --max-width: 960px;
+        --space-5xl: 6.5rem;
+        --space-4xl: 5rem;
+        --space-3xl: 3.5rem;
+    }
+    
+    html {
+        font-size: 15px;
+    }
+}
+
+/* Tablets / Medium Screens (992px and below) */
+@media (max-width: 992px) {
+    :root {
+        --max-width: 720px;
+        --header-height: 70px;
+        --space-5xl: 5rem;
+        --space-4xl: 4rem;
+        --space-3xl: 3rem;
+        --space-2xl: 2rem;
+    }
+    
+    html {
+        font-size: 14px;
+    }
+    
+    .container {
+        padding-left: var(--space-md);
+        padding-right: var(--space-md);
+    }
+}
+
+/* Small Tablets / Large Mobile (768px and below) */
+@media (max-width: 768px) {
+    :root {
+        --max-width: 540px;
+        --space-5xl: 4rem;
+        --space-4xl: 3rem;
+        --space-3xl: 2.25rem;
+        --space-2xl: 1.75rem;
+    }
+}
+
+/* Mobile Screens (576px and below) */
+@media (max-width: 576px) {
+    :root {
+        --space-5xl: 3.5rem;
+        --space-4xl: 2.5rem;
+        --space-3xl: 2rem;
+        --space-2xl: 1.5rem;
+    }
+    html {
+        font-size: 13px;
+    }
+}
+
+/* Tablets and Mobile Overrides for Header and Drawer */
+@media (max-width: 992px) {
+    .desktop-nav {
+        display: none !important;
+    }
+    
+    .btn-nav-cta {
+        display: none !important;
+    }
+    
+    .hamburger-btn {
+        display: flex !important;
+    }
+}
+
+/* Touch Device Rules - Disable Custom Cursor to preserve native mobile UX */
+@media (pointer: coarse), (hover: none) {
+    .custom-cursor {
+        display: none !important;
+    }
+    
+    body, a, button, [role="button"], input, select, textarea {
+        cursor: auto !important;
+    }
+}
+
+/* ==========================================================================
+   Hero Section Responsive Adaptations
+   ========================================================================== */
+
+@media (max-width: 992px) {
+    .hero-section {
+        padding-top: calc(var(--header-height) + var(--space-xl));
+        padding-bottom: var(--space-3xl);
+    }
+
+    .hero-container-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-3xl);
+        text-align: center;
+        justify-items: center;
+    }
+    
+    .hero-content {
+        align-items: center;
+    }
+    
+    .hero-title {
+        font-size: 3.25rem;
+    }
+    
+    .hero-description {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .hero-actions {
+        justify-content: center;
+    }
+    
+    .hero-stats-grid {
+        max-width: 600px;
+    }
+    
+    .hero-visual {
+        min-height: 360px;
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-stats-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-sm);
+        width: 100%;
+    }
+    
+    .hero-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .hero-actions .btn {
+        width: 100%;
+    }
+}
+
+/* ==========================================================================
+   About Section Responsive Adaptations
+   ========================================================================== */
+
+@media (max-width: 992px) {
+    .about-container-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-3xl);
+    }
+
+    .about-visual {
+        order: 2;
+        min-height: 350px;
+    }
+
+    .about-content {
+        order: 1;
+        align-items: center;
+        text-align: center;
+    }
+
+    .about-title {
+        font-size: 2.75rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .about-title {
+        font-size: 2.25rem;
+    }
+
+    .about-cards-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about-floating-card {
+        display: none !important;
+    }
+}
+
+/* ==========================================================================
+   Courses Section Responsive Adaptations
+   ========================================================================== */
+
+@media (max-width: 992px) {
+    .courses-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
+        max-width: 580px;
+        margin: 0 auto;
+    }
+
+    .courses-title {
+        font-size: 2.75rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .courses-title {
+        font-size: 2.25rem;
+    }
+}
+
+
+
+
