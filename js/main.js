@@ -74,6 +74,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // 7. Hero Visual mouse parallax
     initHeroParallax();
 
+    // 8. Dynamic syllabus drawer setup
+    initSyllabusDrawer();
+
+    // 9. Contact form validation and success notifications
+    initContactForm();
+
     // Export lenis instance globally for use in other scripts
     window.lenisInstance = lenis;
     
@@ -110,7 +116,7 @@ function initCustomCursor() {
     });
 
     // Handle Hover states
-    const hoverables = document.querySelectorAll('a, button, input, select, textarea, [role="button"], .nav-link, .brand-logo, .about-glass-card, .about-dashboard-container, .course-card');
+    const hoverables = document.querySelectorAll('a, button, input, select, textarea, [role="button"], .nav-link, .brand-logo, .about-glass-card, .about-dashboard-container, .course-card, .why-card, .contact-form-card, .contact-map-container, .social-btn');
     hoverables.forEach(elem => {
         elem.addEventListener('mouseenter', () => {
             cursor.classList.add('hovered');
@@ -137,12 +143,16 @@ function initScrollInteractions(lenisInstance) {
     const backToTop = document.getElementById('back-to-top');
 
     // Back to top click handler
-    if (backToTop && lenisInstance) {
+    if (backToTop) {
         backToTop.addEventListener('click', () => {
-            lenisInstance.scrollTo(0, {
-                duration: 1.5,
-                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) // standard expo out
-            });
+            if (lenisInstance) {
+                lenisInstance.scrollTo(0, {
+                    duration: 1.5,
+                    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) // standard expo out
+                });
+            } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
         });
     }
 
@@ -280,5 +290,234 @@ function initHeroParallax() {
         });
     });
 }
+
+// Syllabus Modules Mock Data for Course cards
+const SYLLABUS_DATA = {
+    "Full-Stack Web Engineering": [
+        { module: "Module 1: Frontend Foundations", topics: ["Semantic HTML5 & CSS3 Architecture", "Modern CSS Layouts (Grid, Flexbox)", "Responsive & Fluid Design Systems"] },
+        { module: "Module 2: Advanced JS & Compilers", topics: ["ES6+ Modern Javascript specifications", "Asynchronous Programming & Fetch APIs", "Toolchains (Vite, Webpack, npm)"] },
+        { module: "Module 3: Server Engineering", topics: ["Node.js runtime & Express servers", "Restful API design guidelines", "Middleware, routing, and controllers"] },
+        { module: "Module 4: Database Systems & Cloud", topics: ["SQL (PostgreSQL) & NoSQL (MongoDB)", "ORM & Query Performance optimization", "Deployment on Vercel, Netlify, Render"] }
+    ],
+    "Advanced UI/UX & Creative Design": [
+        { module: "Module 1: UX Research & Scopes", topics: ["User personas & empathy mapping", "User flows & wireframing systems", "Information Architecture (IA) design"] },
+        { module: "Module 2: UI Design Principles", topics: ["Visual hierarchy & typography guides", "Color theories & components library", "Design Systems in Figma"] },
+        { module: "Module 3: Prototyping & Interactions", topics: ["High-fidelity micro-interactions", "Usability testing & product validation", "Developer handoff & documentation"] },
+        { module: "Module 4: No-Code Development", topics: ["Framer layouts & responsive layouts", "Webflow client websites execution", "Portfolio project optimization"] }
+    ],
+    "Data Science & Neural Systems": [
+        { module: "Module 1: Mathematical Foundations", topics: ["Linear algebra & vector calculus", "Probability & statistical modeling", "Data cleanup using Pandas/NumPy"] },
+        { module: "Module 2: Machine Learning Paths", topics: ["Supervised vs Unsupervised modeling", "Regression, decision trees, clustering", "Scikit-Learn implementation steps"] },
+        { module: "Module 3: Deep Learning & Neural", topics: ["Artificial Neural Networks (ANN)", "Convolutional Neural Networks (CNN)", "Introduction to TensorFlow/Keras"] },
+        { module: "Module 4: Big Data Pipelines", topics: ["SQL querying & MongoDB pipelines", "Data visualization with Matplotlib", "Model deployment as REST APIs"] }
+    ],
+    "Cloud Computing & Cyber Defence": [
+        { module: "Module 1: Computer Networks", topics: ["TCP/IP protocols, DNS, subnets", "Network packet analysis (Wireshark)", "Routing configurations"] },
+        { module: "Module 2: Cybersecurity Core", topics: ["Cryptography (AES, RSA, hashing)", "OWASP Top 10 vulnerabilities", "Penetration testing & Kali Linux"] },
+        { module: "Module 3: Cloud Architectures", topics: ["AWS/Azure cloud instances", "Serverless systems (Lambda, S3)", "Containerization using Docker"] },
+        { module: "Module 4: DevSecOps & Audit", topics: ["CI/CD secure deployment pipelines", "Access control & Identity (IAM)", "Security compliance and audits"] }
+    ]
+};
+
+/**
+ * Handle dynamic syllabus drawer popup and dynamic timeline animations
+ */
+function initSyllabusDrawer() {
+    const drawer = document.getElementById('syllabus-drawer');
+    const overlay = document.getElementById('syllabus-drawer-overlay');
+    const closeBtn = document.getElementById('syllabus-drawer-close');
+    const drawerTitle = document.getElementById('drawer-course-title');
+    const drawerBody = document.getElementById('syllabus-drawer-body');
+    const buttons = document.querySelectorAll('.btn-course-cta');
+
+    if (!drawer || !overlay || !closeBtn || !drawerTitle || !drawerBody || buttons.length === 0) return;
+
+    // Helper to open drawer
+    const openDrawer = (courseName) => {
+        const syllabus = SYLLABUS_DATA[courseName] || [];
+        
+        // Update Title
+        drawerTitle.textContent = courseName;
+        
+        // Populate Syllabus Cards
+        drawerBody.innerHTML = '';
+        syllabus.forEach((mod) => {
+            const card = document.createElement('div');
+            card.className = 'syllabus-module-card';
+            
+            // Build Topics HTML
+            let topicsHTML = '<ul class="module-topics-list">';
+            mod.topics.forEach(topic => {
+                topicsHTML += `
+                    <li class="module-topic-item">
+                        <span class="topic-dot"></span>
+                        <span>${topic}</span>
+                    </li>
+                `;
+            });
+            topicsHTML += '</ul>';
+
+            card.innerHTML = `
+                <h4 class="module-title">${mod.module}</h4>
+                ${topicsHTML}
+            `;
+            drawerBody.appendChild(card);
+        });
+
+        // Trigger Lucide to render icon elements
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+
+        // Open transition
+        overlay.classList.add('active');
+        drawer.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        if (window.lenisInstance) window.lenisInstance.stop();
+
+        // GSAP animate modules entry
+        gsap.fromTo('.syllabus-module-card',
+            { opacity: 0, x: 30 },
+            { opacity: 1, x: 0, stagger: 0.08, duration: 0.5, ease: 'power2.out', delay: 0.15 }
+        );
+    };
+
+    // Helper to close drawer
+    const closeDrawer = () => {
+        overlay.classList.remove('active');
+        drawer.classList.remove('active');
+        document.body.style.overflow = '';
+        if (window.lenisInstance) window.lenisInstance.start();
+    };
+
+    // Attach click events to syllabus buttons
+    buttons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            // Find parent course title
+            const card = btn.closest('.course-card');
+            if (card) {
+                const titleElement = card.querySelector('.course-card-title');
+                if (titleElement) {
+                    const titleText = titleElement.textContent.trim();
+                    openDrawer(titleText);
+                }
+            }
+        });
+    });
+
+    // Close actions
+    closeBtn.addEventListener('click', closeDrawer);
+    overlay.addEventListener('click', closeDrawer);
+}
+
+/**
+ * Handle contact form client-side validation and premium success notification toasts
+ */
+function initContactForm() {
+    const form = document.getElementById('institute-contact-form');
+    if (!form) return;
+
+    const fields = form.querySelectorAll('input, select, textarea');
+
+    // Create success toast structure dynamically to keep HTML clean
+    let toast = document.getElementById('success-toast-notification');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'success-toast-notification';
+        toast.className = 'success-toast';
+        toast.innerHTML = `
+            <span class="toast-icon">
+                <i data-lucide="check-circle-2" style="width: 20px; height: 20px; color: #10b981;"></i>
+            </span>
+            <span>Thank you! Inquiry submitted successfully.</span>
+        `;
+        document.body.appendChild(toast);
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    }
+
+    // Helper to validate email addresses
+    const validateEmail = (email) => {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(String(email).toLowerCase());
+    };
+
+    // Helper to show/hide errors
+    const toggleFieldError = (field, isError) => {
+        const group = field.closest('.form-group');
+        if (group) {
+            if (isError) {
+                group.classList.add('error');
+            } else {
+                group.classList.remove('error');
+            }
+        }
+    };
+
+    // Input/change listeners to clear errors on the fly
+    fields.forEach(field => {
+        ['input', 'change', 'blur'].forEach(eventType => {
+            field.addEventListener(eventType, () => {
+                if (field.value.trim() !== '') {
+                    if (field.type === 'email') {
+                        if (validateEmail(field.value.trim())) {
+                            toggleFieldError(field, false);
+                        }
+                    } else {
+                        toggleFieldError(field, false);
+                    }
+                }
+            });
+        });
+    });
+
+    // Handle Form Submit
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let hasErrors = false;
+
+        fields.forEach(field => {
+            const val = field.value.trim();
+            if (val === '') {
+                toggleFieldError(field, true);
+                hasErrors = true;
+            } else if (field.type === 'email' && !validateEmail(val)) {
+                toggleFieldError(field, true);
+                hasErrors = true;
+            } else {
+                toggleFieldError(field, false);
+            }
+        });
+
+        if (!hasErrors) {
+            // Success! Trigger submit loading state or directly dynamic toast notification
+            const submitBtn = form.querySelector('.form-submit-btn');
+            const originalHTML = submitBtn.innerHTML;
+
+            // Submit Button Staged Animation
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = 'Sending Inquiries...';
+
+            setTimeout(() => {
+                // Reset form values
+                form.reset();
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalHTML;
+
+                // Open Success Toast
+                toast.classList.add('active');
+
+                // Animate toast entry/exit
+                setTimeout(() => {
+                    toast.classList.remove('active');
+                }, 4000);
+            }, 1200);
+        }
+    });
+}
+
+
 
 

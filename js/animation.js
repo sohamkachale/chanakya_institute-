@@ -33,6 +33,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 6. Courses Section ScrollTrigger animations
     initCoursesAnimations();
+
+    // 7. Why Choose Us Section ScrollTrigger animations
+    initWhyAnimations();
+
+    // 8. Contact & Footer Section ScrollTrigger animations
+    initContactAnimations();
 });
 
 /**
@@ -505,6 +511,204 @@ function initCoursesAnimations() {
         );
     }
 }
+
+/**
+ * Why Choose Us Section ScrollTrigger animations
+ */
+function initWhyAnimations() {
+    const section = document.querySelector('.why-choose-us-section');
+    if (!section) return;
+
+    const title = section.querySelector('.why-title');
+    const badge = section.querySelector('.why-badge');
+    const subtitle = section.querySelector('.why-subtitle');
+    const cards = section.querySelectorAll('.why-card');
+
+    const tl = gsap.timeline({
+        scrollTrigger: {
+            trigger: section,
+            start: 'top 75%',
+            toggleActions: 'play none none none'
+        }
+    });
+
+    gsap.set([badge, subtitle], { opacity: 0 });
+    gsap.set(cards, { opacity: 0 });
+
+    // 1. Badge Reveal
+    tl.fromTo(badge,
+        { opacity: 0, y: 15 },
+        { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }
+    );
+
+    // 2. Title SplitType Reveal
+    if (typeof SplitType !== 'undefined' && title) {
+        const split = new SplitType(title, { types: 'words' });
+        split.words.forEach(word => {
+            const wrapper = document.createElement('span');
+            wrapper.className = 'word-reveal';
+            word.parentNode.insertBefore(wrapper, word);
+            wrapper.appendChild(word);
+        });
+        
+        tl.fromTo(split.words,
+            { y: '105%' },
+            { y: '0%', stagger: 0.04, duration: 1, ease: 'power4.out' },
+            '-=0.45'
+        );
+    } else if (title) {
+        tl.fromTo(title,
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' },
+            '-=0.45'
+        );
+    }
+
+    // 3. Subtitle Reveal
+    tl.fromTo(subtitle,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' },
+        '-=0.7'
+    );
+
+    // 4. Staggered Feature Cards reveal
+    if (cards.length > 0) {
+        tl.fromTo(cards,
+            { opacity: 0, y: 35, scale: 0.96 },
+            { opacity: 1, y: 0, scale: 1, stagger: 0.08, duration: 0.8, ease: 'power3.out' },
+            '-=0.75'
+        );
+
+        // 5. Staggered micro-icon scale details
+        tl.fromTo(section.querySelectorAll('.why-icon-container'),
+            { scale: 0.7, opacity: 0 },
+            { scale: 1, opacity: 1, stagger: 0.08, duration: 0.5, ease: 'back.out(1.5)' },
+            '-=0.6'
+        );
+    }
+}
+
+/**
+ * Contact & Footer Section ScrollTrigger animations
+ */
+function initContactAnimations() {
+    const section = document.querySelector('.contact-section');
+    if (!section) return;
+
+    const title = section.querySelector('.contact-title');
+    const badge = section.querySelector('.contact-badge');
+    const subtitle = section.querySelector('.contact-subtitle');
+    const items = section.querySelectorAll('.contact-item');
+    const map = section.querySelector('.contact-map-container');
+    const socials = section.querySelectorAll('.social-btn');
+    const formCard = section.querySelector('.contact-form-card');
+
+    const tl = gsap.timeline({
+        scrollTrigger: {
+            trigger: section,
+            start: 'top 75%',
+            toggleActions: 'play none none none'
+        }
+    });
+
+    gsap.set([badge, subtitle, map, formCard], { opacity: 0 });
+    gsap.set(items, { opacity: 0 });
+    gsap.set(socials, { opacity: 0 });
+
+    // 1. Badge Reveal
+    tl.fromTo(badge,
+        { opacity: 0, y: 15 },
+        { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }
+    );
+
+    // 2. Title SplitType Reveal
+    if (typeof SplitType !== 'undefined' && title) {
+        const split = new SplitType(title, { types: 'words' });
+        split.words.forEach(word => {
+            const wrapper = document.createElement('span');
+            wrapper.className = 'word-reveal';
+            word.parentNode.insertBefore(wrapper, word);
+            wrapper.appendChild(word);
+        });
+        
+        tl.fromTo(split.words,
+            { y: '105%' },
+            { y: '0%', stagger: 0.04, duration: 1, ease: 'power4.out' },
+            '-=0.45'
+        );
+    } else if (title) {
+        tl.fromTo(title,
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' },
+            '-=0.45'
+        );
+    }
+
+    // 3. Subtitle Reveal
+    tl.fromTo(subtitle,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' },
+        '-=0.7'
+    );
+
+    // 4. Staggered contact items fade in
+    if (items.length > 0) {
+        tl.fromTo(items,
+            { opacity: 0, x: -30 },
+            { opacity: 1, x: 0, stagger: 0.1, duration: 0.7, ease: 'power2.out' },
+            '-=0.6'
+        );
+    }
+
+    // 5. Map container scale in
+    if (map) {
+        tl.fromTo(map,
+            { opacity: 0, scale: 0.95, y: 15 },
+            { opacity: 1, scale: 1, y: 0, duration: 0.7, ease: 'power3.out' },
+            '-=0.55'
+        );
+    }
+
+    // 6. Social buttons entry
+    if (socials.length > 0) {
+        tl.fromTo(socials,
+            { opacity: 0, scale: 0.7 },
+            { opacity: 1, scale: 1, stagger: 0.08, duration: 0.5, ease: 'back.out(1.5)' },
+            '-=0.4'
+        );
+    }
+
+    // 7. Right form card slide in
+    if (formCard) {
+        tl.fromTo(formCard,
+            { opacity: 0, x: 50, scale: 0.98 },
+            { opacity: 1, x: 0, scale: 1, duration: 0.9, ease: 'power3.out' },
+            '-=1.2'
+        );
+    }
+
+    // 8. Footer Columns stagger reveal
+    const footer = document.querySelector('.footer-section');
+    if (footer) {
+        gsap.fromTo(footer.querySelectorAll('.footer-col'),
+            { opacity: 0, y: 30 },
+            {
+                opacity: 1,
+                y: 0,
+                stagger: 0.1,
+                duration: 0.8,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: footer,
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                }
+            }
+        );
+    }
+}
+
+
 
 
 
