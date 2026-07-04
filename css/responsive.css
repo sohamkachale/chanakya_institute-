@@ -214,6 +214,10 @@
     .courses-title {
         font-size: 2.75rem;
     }
+
+    .course-card {
+        min-height: unset !important;
+    }
 }
 
 @media (max-width: 576px) {
@@ -224,6 +228,15 @@
 
     .courses-title {
         font-size: 2.25rem;
+    }
+
+    .course-card {
+        padding: var(--space-md) !important;
+    }
+
+    .course-card-actions {
+        grid-template-columns: 1fr;
+        gap: 6px;
     }
 }
 
