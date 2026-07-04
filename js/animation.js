@@ -549,7 +549,9 @@ function initWhyAnimations() {
     const title = section.querySelector('.why-title');
     const badge = section.querySelector('.why-badge');
     const subtitle = section.querySelector('.why-subtitle');
-    const cards = section.querySelectorAll('.why-card');
+    const techHub = section.querySelector('.why-tech-hub');
+    const bentoCards = section.querySelectorAll('.why-bento-card');
+    const techTags = section.querySelectorAll('.tech-tag-card');
 
     const tl = gsap.timeline({
         scrollTrigger: {
@@ -559,8 +561,9 @@ function initWhyAnimations() {
         }
     });
 
-    gsap.set([badge, subtitle].filter(Boolean), { opacity: 0 });
-    if (cards.length > 0) gsap.set(cards, { opacity: 0 });
+    gsap.set([badge, subtitle, techHub].filter(Boolean), { opacity: 0 });
+    if (bentoCards.length > 0) gsap.set(bentoCards, { opacity: 0, y: 30 });
+    if (techTags.length > 0) gsap.set(techTags, { opacity: 0, scale: 0.8 });
 
     // 1. Badge Reveal
     if (badge) {
@@ -602,16 +605,34 @@ function initWhyAnimations() {
         );
     }
 
-    // 4. Staggered Feature Cards reveal
-    if (cards.length > 0) {
-        tl.fromTo(cards,
-            { opacity: 0, y: 35, scale: 0.96 },
-            { opacity: 1, y: 0, scale: 1, stagger: 0.08, duration: 0.8, ease: 'power3.out' },
-            '-=0.75'
+    // 4. Tech Hub Panel Reveal
+    if (techHub) {
+        tl.fromTo(techHub,
+            { opacity: 0, y: 35 },
+            { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' },
+            '-=0.65'
+        );
+    }
+
+    // 5. Orbiting Tech Tags pop-in in stagger
+    if (techTags.length > 0) {
+        tl.fromTo(techTags,
+            { opacity: 0, scale: 0.8 },
+            { opacity: 1, scale: 1, stagger: 0.05, duration: 0.5, ease: 'back.out(1.2)' },
+            '-=0.4'
+        );
+    }
+
+    // 6. Bento Value Cards stagger reveal
+    if (bentoCards.length > 0) {
+        tl.fromTo(bentoCards,
+            { opacity: 0, y: 30 },
+            { opacity: 1, y: 0, stagger: 0.08, duration: 0.8, ease: 'power3.out' },
+            '-=0.7'
         );
 
-        // 5. Staggered micro-icon scale details
-        tl.fromTo(section.querySelectorAll('.why-icon-container'),
+        // Staggered micro-icon scale details
+        tl.fromTo(section.querySelectorAll('.bento-icon'),
             { scale: 0.7, opacity: 0 },
             { scale: 1, opacity: 1, stagger: 0.08, duration: 0.5, ease: 'back.out(1.5)' },
             '-=0.6'
