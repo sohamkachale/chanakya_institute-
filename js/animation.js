@@ -389,9 +389,6 @@ function initAboutAnimations() {
     const cards = section.querySelectorAll('.about-glass-card');
     const visual = section.querySelector('.about-dashboard-container');
     const floatCards = section.querySelectorAll('.about-floating-card');
-    const timelineTitle = section.querySelector('.timeline-section-title');
-    const timelinePath = section.querySelector('.timeline-line-path');
-    const milestones = section.querySelectorAll('.timeline-milestone');
 
     // Create dynamic ScrollTrigger timeline
     const tl = gsap.timeline({
@@ -403,13 +400,9 @@ function initAboutAnimations() {
     });
 
     // Set initial visibility values
-    gsap.set([badge, desc, visual, timelineTitle].filter(Boolean), { opacity: 0 });
+    gsap.set([badge, desc, visual].filter(Boolean), { opacity: 0 });
     if (floatCards.length > 0) gsap.set(floatCards, { opacity: 0, scale: 0.8 });
     if (cards.length > 0) gsap.set(cards, { opacity: 0 });
-    if (milestones.length > 0) gsap.set(milestones, { opacity: 0, x: -20 });
-    if (timelinePath) {
-        gsap.set(timelinePath, { scaleY: 0, transformOrigin: 'top center' });
-    }
 
     // 1. Badge Reveal
     if (badge) {
@@ -443,13 +436,15 @@ function initAboutAnimations() {
     }
 
     // 3. Description Fade Up
-    tl.fromTo(desc,
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' },
-        '-=0.7'
-    );
+    if (desc) {
+        tl.fromTo(desc,
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' },
+            '-=0.7'
+        );
+    }
 
-    // 4. Mission & Vision Cards reveal
+    // 4. Mission, Vision & DevLab Bento Cards reveal
     if (cards.length > 0) {
         tl.fromTo(cards,
             { opacity: 0, y: 25, scale: 0.96 },
@@ -458,37 +453,14 @@ function initAboutAnimations() {
         );
     }
 
-    // 5. Journey timeline milestones & paths reveal
-    if (timelineTitle) {
-        tl.fromTo(timelineTitle,
-            { opacity: 0, y: 15 },
-            { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' },
-            '-=0.6'
+    // 5. Left Visual Dashboard and Floating Cards reveal
+    if (visual) {
+        tl.fromTo(visual,
+            { opacity: 0, scale: 0.94, y: 35 },
+            { opacity: 1, scale: 1, y: 0, duration: 1.2, ease: 'power4.out' },
+            '-=1.8'
         );
     }
-    
-    if (timelinePath) {
-        tl.to(timelinePath, {
-            scaleY: 1,
-            duration: 1,
-            ease: 'power1.inOut'
-        }, '-=0.4');
-    }
-
-    if (milestones.length > 0) {
-        tl.fromTo(milestones,
-            { opacity: 0, x: -20 },
-            { opacity: 1, x: 0, stagger: 0.15, duration: 0.7, ease: 'power3.out' },
-            '-=0.8'
-        );
-    }
-
-    // 6. Left Visual Dashboard and Floating Cards reveal
-    tl.fromTo(visual,
-        { opacity: 0, scale: 0.94, y: 35 },
-        { opacity: 1, scale: 1, y: 0, duration: 1.2, ease: 'power4.out' },
-        '-=1.8'
-    );
     if (floatCards.length > 0) {
         tl.fromTo(floatCards,
             { opacity: 0, scale: 0.8, y: 20 },
@@ -657,10 +629,11 @@ function initContactAnimations() {
     const title = section.querySelector('.contact-title');
     const badge = section.querySelector('.contact-badge');
     const subtitle = section.querySelector('.contact-subtitle');
-    const items = section.querySelectorAll('.contact-item');
-    const map = section.querySelector('.contact-map-container');
-    const socials = section.querySelectorAll('.social-btn');
+    const items = section.querySelectorAll('.info-details-card');
+    const map = section.querySelector('.contact-map-fullwidth');
+    const socials = section.querySelectorAll('.social-clay-btn');
     const formCard = section.querySelector('.contact-form-card');
+    const techLottie = section.querySelector('.contact-tech-lottie-container');
 
     const tl = gsap.timeline({
         scrollTrigger: {
@@ -670,7 +643,7 @@ function initContactAnimations() {
         }
     });
 
-    gsap.set([badge, subtitle, map, formCard].filter(Boolean), { opacity: 0 });
+    gsap.set([badge, subtitle, map, formCard, techLottie].filter(Boolean), { opacity: 0 });
     if (items.length > 0) gsap.set(items, { opacity: 0 });
     if (socials.length > 0) gsap.set(socials, { opacity: 0 });
 
@@ -723,16 +696,25 @@ function initContactAnimations() {
         );
     }
 
-    // 5. Map container scale in
-    if (map) {
-        tl.fromTo(map,
-            { opacity: 0, scale: 0.95, y: 15 },
-            { opacity: 1, scale: 1, y: 0, duration: 0.7, ease: 'power3.out' },
-            '-=0.55'
+    // 5. Tech Lottie container entry
+    if (techLottie) {
+        tl.fromTo(techLottie,
+            { opacity: 0, scale: 0.95 },
+            { opacity: 1, scale: 1, duration: 0.7, ease: 'power3.out' },
+            '-=0.5'
         );
     }
 
-    // 6. Social buttons entry
+    // 6. Map container scale in
+    if (map) {
+        tl.fromTo(map,
+            { opacity: 0, scale: 0.98, y: 20 },
+            { opacity: 1, scale: 1, y: 0, duration: 0.8, ease: 'power3.out' },
+            '-=0.45'
+        );
+    }
+
+    // 7. Social buttons entry
     if (socials.length > 0) {
         tl.fromTo(socials,
             { opacity: 0, scale: 0.7 },
@@ -741,7 +723,7 @@ function initContactAnimations() {
         );
     }
 
-    // 7. Right form card slide in
+    // 8. Right form card slide in
     if (formCard) {
         tl.fromTo(formCard,
             { opacity: 0, x: 50, scale: 0.98 },

@@ -92,6 +92,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // 13. Initialize Contact Lottie Animation
     initContactLottie();
 
+    // 14. Initialize Button Ripple Animations
+    initButtonRipple();
+
     // Export lenis instance globally for use in other scripts
     window.lenisInstance = lenis;
     
@@ -314,29 +317,53 @@ function initHeroParallax() {
 
 // Syllabus Modules Mock Data for Course cards
 const SYLLABUS_DATA = {
-    "Full-Stack Web Engineering": [
-        { module: "Module 1: Frontend Foundations", topics: ["Semantic HTML5 & CSS3 Architecture", "Modern CSS Layouts (Grid, Flexbox)", "Responsive & Fluid Design Systems"] },
-        { module: "Module 2: Advanced JS & Compilers", topics: ["ES6+ Modern Javascript specifications", "Asynchronous Programming & Fetch APIs", "Toolchains (Vite, Webpack, npm)"] },
-        { module: "Module 3: Server Engineering", topics: ["Node.js runtime & Express servers", "Restful API design guidelines", "Middleware, routing, and controllers"] },
-        { module: "Module 4: Database Systems & Cloud", topics: ["SQL (PostgreSQL) & NoSQL (MongoDB)", "ORM & Query Performance optimization", "Deployment on Vercel, Netlify, Render"] }
+    "Full-Stack Java Development": [
+        { module: "Module 1: Java Core Foundations", topics: ["Object-Oriented Programming (OOP)", "Data Types, Collections, and Generics", "Exception Handling & Multithreading"] },
+        { module: "Module 2: Database Systems & SQL", topics: ["Relational Database Design", "SQL queries, joins, and indexes", "JDBC and Hibernate/JPA integration"] },
+        { module: "Module 3: Spring Boot & Microservices", topics: ["Spring MVC & Dependency Injection", "Building RESTful APIs with Spring Boot", "Microservice architecture & API Gateways"] },
+        { module: "Module 4: Frontend & React Integration", topics: ["React JS & State Management", "Axios API client consumption", "Testing (JUnit, Mockito) & AWS Deployment"] }
     ],
-    "Advanced UI/UX & Creative Design": [
-        { module: "Module 1: UX Research & Scopes", topics: ["User personas & empathy mapping", "User flows & wireframing systems", "Information Architecture (IA) design"] },
-        { module: "Module 2: UI Design Principles", topics: ["Visual hierarchy & typography guides", "Color theories & components library", "Design Systems in Figma"] },
-        { module: "Module 3: Prototyping & Interactions", topics: ["High-fidelity micro-interactions", "Usability testing & product validation", "Developer handoff & documentation"] },
-        { module: "Module 4: No-Code Development", topics: ["Framer layouts & responsive layouts", "Webflow client websites execution", "Portfolio project optimization"] }
+    "Full-Stack Python Development": [
+        { module: "Module 1: Python Core Foundations", topics: ["Python Syntax, Data Structures & Logic", "Functions, Modules, and OOP", "File I/O & Error Management"] },
+        { module: "Module 2: Backend Frameworks", topics: ["Django MVC Web Framework", "REST APIs with FastAPI & Django REST", "Database migrations (SQLAlchemy, PostgreSQL)"] },
+        { module: "Module 3: Web Scraping & APIs", topics: ["Scraping with BeautifulSoup/Scrapy", "Third-party API consumption & webhooks", "Authentication (JWT, OAuth2)"] },
+        { module: "Module 4: React Frontend & CI/CD", topics: ["React client integration", "Containerization using Docker", "Deployment on Heroku/AWS"] }
     ],
-    "Data Science & Neural Systems": [
-        { module: "Module 1: Mathematical Foundations", topics: ["Linear algebra & vector calculus", "Probability & statistical modeling", "Data cleanup using Pandas/NumPy"] },
-        { module: "Module 2: Machine Learning Paths", topics: ["Supervised vs Unsupervised modeling", "Regression, decision trees, clustering", "Scikit-Learn implementation steps"] },
-        { module: "Module 3: Deep Learning & Neural", topics: ["Artificial Neural Networks (ANN)", "Convolutional Neural Networks (CNN)", "Introduction to TensorFlow/Keras"] },
-        { module: "Module 4: Big Data Pipelines", topics: ["SQL querying & MongoDB pipelines", "Data visualization with Matplotlib", "Model deployment as REST APIs"] }
+    "Data Science & Machine Learning": [
+        { module: "Module 1: Data Analytics Foundations", topics: ["Python for Data Science (NumPy, Pandas)", "Exploratory Data Analysis (EDA)", "Data Cleaning & Feature Engineering"] },
+        { module: "Module 2: Statistics & Probability", topics: ["Descriptive & Inferential statistics", "Hypothesis testing & A/B tests", "Probability distributions"] },
+        { module: "Module 3: Machine Learning Models", topics: ["Supervised (Regression, Classification)", "Unsupervised (Clustering, PCA)", "Scikit-Learn modeling pipelines"] },
+        { module: "Module 4: Deep Learning & Deployment", topics: ["Neural Networks with TensorFlow/Keras", "Model evaluation & hyperparameter tuning", "Deploying models as REST API apps"] }
     ],
-    "Cloud Computing & Cyber Defence": [
-        { module: "Module 1: Computer Networks", topics: ["TCP/IP protocols, DNS, subnets", "Network packet analysis (Wireshark)", "Routing configurations"] },
-        { module: "Module 2: Cybersecurity Core", topics: ["Cryptography (AES, RSA, hashing)", "OWASP Top 10 vulnerabilities", "Penetration testing & Kali Linux"] },
-        { module: "Module 3: Cloud Architectures", topics: ["AWS/Azure cloud instances", "Serverless systems (Lambda, S3)", "Containerization using Docker"] },
-        { module: "Module 4: DevSecOps & Audit", topics: ["CI/CD secure deployment pipelines", "Access control & Identity (IAM)", "Security compliance and audits"] }
+    "Data Analysis & Business Intelligence": [
+        { module: "Module 1: Excel & SQL Foundations", topics: ["Advanced Excel formulas & pivot tables", "SQL databases querying & joins", "Data aggregation & cleaning in SQL"] },
+        { module: "Module 2: Power BI & Visualization", topics: ["Data modeling & DAX queries", "Interactive dashboard designs", "Power BI Service & report publishing"] },
+        { module: "Module 3: Tableau Analytics", topics: ["Tableau dimensions & measures", "Storytelling with Tableau Dashboards", "Calculated fields & dual axes charts"] },
+        { module: "Module 4: Business Insights Reporting", topics: ["Key Performance Indicators (KPIs)", "Executive reporting presentations", "Intro to Python for data analysis"] }
+    ],
+    "Front-End Web Development": [
+        { module: "Module 1: Web UI Foundations", topics: ["Semantic HTML5 structures", "Modern CSS layout styles (Flexbox, Grid)", "Responsive & Mobile-first designs"] },
+        { module: "Module 2: JavaScript Core", topics: ["DOM manipulations & event flows", "ES6+ Modern Javascript logic", "Asynchronous fetch & REST API consumption"] },
+        { module: "Module 3: Tailwind CSS & Tooling", topics: ["Utility-first styling with Tailwind", "Node package manager (npm)", "Vite build setups & Git repositories"] },
+        { module: "Module 4: React UI Framework", topics: ["React components & state management", "Routing with React Router", "Deploying to Vercel/Netlify"] }
+    ],
+    "Advanced UI/UX & Product Design": [
+        { module: "Module 1: User Research & IA", topics: ["User personas & empathy mapping", "User journey flows & wireframes", "Information Architecture & Card Sorting"] },
+        { module: "Module 2: Figma Design Systems", topics: ["Figma components, variants & auto-layout", "Color grids & typography systems", "Interactive prototyping animations"] },
+        { module: "Module 3: Design Testing & Handoff", topics: ["Usability testing & feedback iteration", "Developer handoff documentation", "Design audit methodologies"] },
+        { module: "Module 4: Framer & Portfolio Web", topics: ["Framer visual canvas layout", "Responsive web pages publishing", "Creative portfolio building"] }
+    ],
+    "GST, Tally Prime & ERP Systems": [
+        { module: "Module 1: Financial Accounting Core", topics: ["Double-entry accounting principles", "Journal entries, Ledger accounts", "Trial Balance & Final accounts preparation"] },
+        { module: "Module 2: Tally Prime Fundamentals", topics: ["Company creation & voucher entry", "Inventory management & invoicing", "Bank reconciliation statements (BRS)"] },
+        { module: "Module 3: GST & Taxation in Tally", topics: ["CGST, SGST, IGST calculations", "E-way bill generation & GST portal logs", "Filing GSTR-1, GSTR-3B forms"] },
+        { module: "Module 4: Payroll & TDS Audit", topics: ["Payroll ledger configurations", "TDS calculation & returns", "ERP system auditing procedures"] }
+    ],
+    "Cloud Computing & Cyber Security": [
+        { module: "Module 1: Networks & Systems", topics: ["TCP/IP protocols, subnetting & ports", "Linux system administration", "Network sniffing & diagnostics"] },
+        { module: "Module 2: Cloud Architectures (AWS)", topics: ["Amazon EC2, VPC, S3 storage systems", "Serverless setups (AWS Lambda)", "Identity Access Management (IAM) security"] },
+        { module: "Module 3: Cybersecurity Core", topics: ["Cryptography (symmetric/asymmetric)", "OWASP Top 10 web vulnerabilities", "Firewalls, VPNs & access policies"] },
+        { module: "Module 4: Hacking & Penetration Testing", topics: ["Kali Linux tools configuration", "Vulnerability assessments", "Security compliance standards"] }
     ]
 };
 
@@ -349,7 +376,7 @@ function initSyllabusDrawer() {
     const closeBtn = document.getElementById('syllabus-drawer-close');
     const drawerTitle = document.getElementById('drawer-course-title');
     const drawerBody = document.getElementById('syllabus-drawer-body');
-    const buttons = document.querySelectorAll('.btn-course-cta');
+    const buttons = document.querySelectorAll('.btn-syllabus');
 
     if (!drawer || !overlay || !closeBtn || !drawerTitle || !drawerBody || buttons.length === 0) return;
 
@@ -441,24 +468,6 @@ function initContactForm() {
 
     const fields = form.querySelectorAll('input, select, textarea');
 
-    // Create success toast structure dynamically to keep HTML clean
-    let toast = document.getElementById('success-toast-notification');
-    if (!toast) {
-        toast = document.createElement('div');
-        toast.id = 'success-toast-notification';
-        toast.className = 'success-toast';
-        toast.innerHTML = `
-            <span class="toast-icon">
-                <i data-lucide="check-circle-2" style="width: 20px; height: 20px; color: #10b981;"></i>
-            </span>
-            <span>Thank you! Inquiry submitted successfully.</span>
-        `;
-        document.body.appendChild(toast);
-        if (typeof lucide !== 'undefined') {
-            lucide.createIcons();
-        }
-    }
-
     // Helper to validate email addresses
     const validateEmail = (email) => {
         const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -467,7 +476,7 @@ function initContactForm() {
 
     // Helper to show/hide errors
     const toggleFieldError = (field, isError) => {
-        const group = field.closest('.form-group');
+        const group = field.closest('.form-group-floating');
         if (group) {
             if (isError) {
                 group.classList.add('error');
@@ -494,6 +503,20 @@ function initContactForm() {
         });
     });
 
+    // Success check Lottie renderer
+    const initSuccessLottie = () => {
+        const successContainer = document.getElementById('success-lottie-anim');
+        if (!successContainer || typeof lottie === 'undefined') return;
+        successContainer.innerHTML = '';
+        lottie.loadAnimation({
+            container: successContainer,
+            renderer: 'svg',
+            loop: false,
+            autoplay: true,
+            path: 'https://lottie.host/9e4726e6-9912-42bb-92fb-d0b497b7b15d/O0qXy2Fmpt.json'
+        });
+    };
+
     // Handle Form Submit
     form.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -513,30 +536,68 @@ function initContactForm() {
         });
 
         if (!hasErrors) {
-            // Success! Trigger submit loading state or directly dynamic toast notification
             const submitBtn = form.querySelector('.form-submit-btn');
             const originalHTML = submitBtn.innerHTML;
 
-            // Submit Button Staged Animation
             submitBtn.disabled = true;
             submitBtn.innerHTML = 'Sending Inquiries...';
 
             setTimeout(() => {
-                // Reset form values
                 form.reset();
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalHTML;
 
-                // Open Success Toast
-                toast.classList.add('active');
-
-                // Animate toast entry/exit
-                setTimeout(() => {
-                    toast.classList.remove('active');
-                }, 4000);
-            }, 1200);
+                // Play GSAP transition: Form -> Success card
+                if (typeof gsap !== 'undefined') {
+                    gsap.to('#contact-form-card', {
+                        opacity: 0,
+                        scale: 0.95,
+                        duration: 0.4,
+                        onComplete: () => {
+                            document.getElementById('contact-form-card').style.display = 'none';
+                            const successCard = document.getElementById('contact-success-card');
+                            successCard.style.display = 'block';
+                            gsap.fromTo('#contact-success-card', 
+                                { opacity: 0, scale: 0.95 },
+                                { opacity: 1, scale: 1, duration: 0.4 }
+                            );
+                            initSuccessLottie();
+                        }
+                    });
+                } else {
+                    document.getElementById('contact-form-card').style.display = 'none';
+                    document.getElementById('contact-success-card').style.display = 'block';
+                    initSuccessLottie();
+                }
+            }, 1000);
         }
     });
+
+    // Handle Return to Form Button click
+    const returnBtn = document.getElementById('success-return-btn');
+    if (returnBtn) {
+        returnBtn.addEventListener('click', () => {
+            if (typeof gsap !== 'undefined') {
+                gsap.to('#contact-success-card', {
+                    opacity: 0,
+                    scale: 0.95,
+                    duration: 0.4,
+                    onComplete: () => {
+                        document.getElementById('contact-success-card').style.display = 'none';
+                        const formCard = document.getElementById('contact-form-card');
+                        formCard.style.display = 'block';
+                        gsap.fromTo('#contact-form-card',
+                            { opacity: 0, scale: 0.95 },
+                            { opacity: 1, scale: 1, duration: 0.4 }
+                        );
+                    }
+                });
+            } else {
+                document.getElementById('contact-success-card').style.display = 'none';
+                document.getElementById('contact-form-card').style.display = 'block';
+            }
+        });
+    }
 }
 
 /**
@@ -639,34 +700,51 @@ function initEnquiryModal() {
 
     // Modal Form Validation & Submission
     if (form) {
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
+        const name = document.getElementById('modal-name');
+        const email = document.getElementById('modal-email');
+        const phone = document.getElementById('modal-phone');
+        const course = document.getElementById('modal-course');
+        const message = document.getElementById('modal-message');
+        const fields = [name, email, phone, course, message];
 
-            const name = document.getElementById('modal-name');
-            const email = document.getElementById('modal-email');
-            const phone = document.getElementById('modal-phone');
-            const course = document.getElementById('modal-course');
-            const message = document.getElementById('modal-message');
+        function validateEmail(val) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(String(val).toLowerCase());
+        }
 
-            let hasErrors = false;
-
-            function validateEmail(val) {
-                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                return re.test(String(val).toLowerCase());
-            }
-
-            function toggleFieldError(field, hasError) {
-                const group = field.closest('.form-group');
-                if (group) {
-                    if (hasError) {
-                        group.classList.add('error');
-                    } else {
-                        group.classList.remove('error');
-                    }
+        function toggleFieldError(field, hasError) {
+            const group = field.closest('.form-group-floating');
+            if (group) {
+                if (hasError) {
+                    group.classList.add('error');
+                } else {
+                    group.classList.remove('error');
                 }
             }
+        }
 
-            const fields = [name, email, phone, course, message];
+        // Input/change listeners to clear errors on the fly
+        fields.forEach(field => {
+            if (!field) return;
+            ['input', 'change', 'blur'].forEach(eventType => {
+                field.addEventListener(eventType, () => {
+                    if (field.value.trim() !== '') {
+                        if (field.id === 'modal-email') {
+                            if (validateEmail(field.value.trim())) {
+                                toggleFieldError(field, false);
+                            }
+                        } else {
+                            toggleFieldError(field, false);
+                        }
+                    }
+                });
+            });
+        });
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let hasErrors = false;
+
             fields.forEach(field => {
                 if (!field) return;
                 const val = field.value.trim();
@@ -737,19 +815,64 @@ function initMagneticButtons() {
     });
 }
 
-/**
- * Initialize Lottie Map routing animation in contact details column
- */
 function initContactLottie() {
-    const container = document.getElementById('lottie-contact-map');
+    const container = document.getElementById('lottie-contact-coding');
     if (!container || typeof lottie === 'undefined') return;
 
-    lottie.loadAnimation({
+    const anim = lottie.loadAnimation({
         container: container,
         renderer: 'svg',
         loop: true,
-        autoplay: true,
-        path: 'assets/lottie/Map Routing.json'
+        autoplay: false,
+        path: 'https://lottie.host/8c64bb5a-a309-4171-8bc6-52c1a6bb6b7e/T7NfO5f5Vv.json'
+    });
+
+    // Viewport visibility observer to boost scroll frame rates
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    anim.play();
+                } else {
+                    anim.pause();
+                }
+            });
+        }, { threshold: 0.15 });
+        observer.observe(container);
+    } else {
+        anim.play();
+    }
+}
+
+/**
+ * Click ripple handler for primary and secondary actions
+ */
+function initButtonRipple() {
+    const buttons = document.querySelectorAll('.btn, .btn-primary, .btn-secondary, .social-clay-btn, .form-submit-btn');
+    buttons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            // Remove any leftover ripples
+            const oldRipples = this.querySelectorAll('.ripple-span');
+            oldRipples.forEach(r => r.remove());
+
+            const ripple = document.createElement('span');
+            ripple.className = 'ripple-span';
+
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            ripple.style.width = ripple.style.height = `${size}px`;
+
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+            ripple.style.left = `${x}px`;
+            ripple.style.top = `${y}px`;
+
+            this.appendChild(ripple);
+
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
     });
 }
 
